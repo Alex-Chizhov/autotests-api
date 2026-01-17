@@ -41,7 +41,7 @@ class ExercisesClient(APIClient):
     Клиент для работы с /api/v1/exercises
     """
 
-    def get_exercises(self, query: GetExercisesQueryDict) -> Response:
+    def get_exercises_api(self, query: GetExercisesQueryDict) -> Response:
         """
         Получение списка заданий для определенного курса.
 
@@ -50,7 +50,7 @@ class ExercisesClient(APIClient):
         """
         return self.get('/api/v1/exercises', query=query)
 
-    def get_exercise(self, exercise_id: str) -> Response:
+    def get_exercise_api(self, exercise_id: str) -> Response:
         """
         Получение задания по id.
 
@@ -59,7 +59,7 @@ class ExercisesClient(APIClient):
         """
         return self.get(f'/api/v1/exercises/{exercise_id}')
 
-    def create_exercise(self, request: CreateExercisesRequestDict) -> Response:
+    def create_exercise_api(self, request: CreateExercisesRequestDict) -> Response:
         """
         Создание задания.
 
@@ -68,7 +68,7 @@ class ExercisesClient(APIClient):
         """
         return self.post('/api/v1/exercises', json=request)
 
-    def update_exercise(self, exercise_id: str, request: CreateExercisesRequestDict) -> Response:
+    def update_exercise_api(self, exercise_id: str, request: CreateExercisesRequestDict) -> Response:
         """
         Обновления данных задания.
 
@@ -78,7 +78,7 @@ class ExercisesClient(APIClient):
         """
         return self.patch(f'/api/v1/exercises/{exercise_id}', json=request)
 
-    def delete_exercise(self, exercise_id: str) -> Response:
+    def delete_exercise_api(self, exercise_id: str) -> Response:
         """
         Удаление задания.
 
