@@ -68,7 +68,7 @@ class ExercisesClient(APIClient):
         """
         return self.post('/api/v1/exercises', json=request)
 
-    def update_exercise_api(self, exercise_id: str, request: CreateExercisesRequestDict) -> Response:
+    def update_exercise_api(self, exercise_id: str, request: UpdateExercisesRequestDict) -> Response:
         """
         Обновления данных задания.
 
