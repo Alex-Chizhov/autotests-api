@@ -1,5 +1,7 @@
-from clients.courses.courses_client import get_courses_client, CreateCourseRequestDict
-from clients.exercises.exercises_client import get_exercises_client, CreateExercisesRequestDict
+from clients.courses.courses_client import get_courses_client
+from clients.courses.courses_schema import CreateCourseRequestSchema
+from clients.exercises.exercises_client import get_exercises_client
+from clients.exercises.exercises_schema import CreateExercisesRequestSchema
 from clients.files.files_client import get_files_client
 from clients.files.files_schema import CreateFileRequestSchema
 from clients.private_http_builder import AuthenticationUserSchema
@@ -32,7 +34,7 @@ create_file_response = files_client.create_file(request=create_file_request)
 print('Create file data:', create_file_response)
 
 courses_client = get_courses_client(user=user_authentication)
-create_course_request = CreateCourseRequestDict(
+create_course_request = CreateCourseRequestSchema(
     title="Заголовок курса",
     maxScore=5,
     minScore=1,
@@ -45,9 +47,9 @@ create_course_response = courses_client.create_course(request=create_course_requ
 print('Create course data:', create_course_response)
 
 exercise_client = get_exercises_client(user=user_authentication)
-create_exercise_request = CreateExercisesRequestDict(
+create_exercise_request = CreateExercisesRequestSchema(
     title="Заголовок задания",
-    courseId=create_course_response['course']['id'],
+    courseId=create_course_response.course.id,
     maxScore=5,
     minScore=1,
     orderIndex=0,

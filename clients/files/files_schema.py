@@ -6,9 +6,9 @@ class FileSchema(BaseModel):
     Описание структуры файла.
     """
     id: str
-    url: HttpUrl
     filename: str
     directory: str
+    url: HttpUrl
 
 
 class CreateFileRequestSchema(BaseModel):
