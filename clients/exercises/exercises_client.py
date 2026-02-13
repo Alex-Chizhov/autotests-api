@@ -21,10 +21,10 @@ class ExercisesClient(APIClient):
         """
         Получение списка заданий для определенного курса.
 
-        :param query: Словарь с courseId.
+        :param query: GetExercisesQuerySchema с courseId.
         :return: Ответ от сервера в виде объекта httpx.Response
         """
-        return self.get('/api/v1/exercises', query=query)
+        return self.get('/api/v1/exercises', query=query.model_dump(by_alias=True))
 
     def get_exercise_api(self, exercise_id: str) -> Response:
         """
