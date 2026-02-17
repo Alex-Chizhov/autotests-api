@@ -7,17 +7,10 @@ from clients.files.files_schema import CreateFileRequestSchema
 from clients.private_http_builder import AuthenticationUserSchema
 from clients.users.public_users_client import get_public_users_client
 from clients.users.users_schema import CreateUserRequestSchema
-from tools.fakers import fake
 
 
 public_users_client = get_public_users_client()
-create_user_request = CreateUserRequestSchema(
-    email=fake.email(),
-    password="string",
-    lastName="string",
-    firstName="string",
-    middleName="string"
-)
+create_user_request = CreateUserRequestSchema()
 create_user_response = public_users_client.create_user(request=create_user_request)
 user_authentication = AuthenticationUserSchema(
     email=create_user_request.email,
@@ -25,21 +18,12 @@ user_authentication = AuthenticationUserSchema(
 )
 
 files_client = get_files_client(user=user_authentication)
-create_file_request = CreateFileRequestSchema(
-    filename="img.jpg",
-    directory="courses",
-    upload_file="./test_data/img.jpg"
-)
+create_file_request = CreateFileRequestSchema(upload_file="./test_data/img.jpg")
 create_file_response = files_client.create_file(request=create_file_request)
 print('Create file data:', create_file_response)
 
 courses_client = get_courses_client(user=user_authentication)
 create_course_request = CreateCourseRequestSchema(
-    title="Заголовок курса",
-    maxScore=5,
-    minScore=1,
-    description="Описание курса",
-    estimatedTime="1 год",
     previewFileId=create_file_response.file.id,
     createdByUserId=create_user_response.user.id,
 )
@@ -47,14 +31,6 @@ create_course_response = courses_client.create_course(request=create_course_requ
 print('Create course data:', create_course_response)
 
 exercise_client = get_exercises_client(user=user_authentication)
-create_exercise_request = CreateExercisesRequestSchema(
-    title="Заголовок задания",
-    courseId=create_course_response.course.id,
-    maxScore=5,
-    minScore=1,
-    orderIndex=0,
-    description="Описание задания",
-    estimatedTime="1 год",
-)
+create_exercise_request = CreateExercisesRequestSchema(courseId=create_course_response.course.id)
 create_exercise_response = exercise_client.create_exercise(request=create_exercise_request)
 print('Create exercise data:', create_exercise_response)
